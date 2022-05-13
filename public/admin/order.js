@@ -83,12 +83,14 @@ $(document).on("click", ".proAdd", function (event) {
                             $('#productModal').modal('show');
                             button.closest("div.row").find("input[name='qty']").hide()
                                 var quty = result.product.quantity;
-                                var rate = result.product.get_product.price;
+                               // var rate1 = result.product.get_product.price;
+                                var rate = result.product.price;
                                 var total = quty * rate;
                                 // console.log(rate);
                                 // console.log(quty);
                                 // console.log(total);
-                                $('.addedProduct').append('<tr><td>'+result.product.get_product.product_name+'</td><td>'+result.product.quantity+'</td><td>'+result.product.get_product.price+'</td><td>'+total+'</td><td><a data-href="'+result.url_edit+'" data-price="'+result.product.get_product.price+'" data-custid="'+result.product.customer_id+'" data-productid="'+result.product.product_id+'" class="btn btn-success orderEdit" title="Edit"><i class="fas fa-pencil-alt "></i></a><a data-href="'+result.url_delete+'" data-custid="'+result.product.customer_id+'" data-productid="'+result.product.product_id+'"class="btn btn-danger orderDelete" ><i class="fas fa-trash-alt "></i></a></td></tr>');
+                               // $('.addedProduct').append('<tr><td>'+result.product.get_product.product_name+'</td><td>'+result.product.quantity+'</td><td>'+result.product.get_product.price+'</td><td>'+total+'</td><td><a data-href="'+result.url_edit+'" data-price="'+result.product.get_product.price+'" data-custid="'+result.product.customer_id+'" data-productid="'+result.product.product_id+'" class="btn btn-success orderEdit" title="Edit"><i class="fas fa-pencil-alt "></i></a><a data-href="'+result.url_delete+'" data-custid="'+result.product.customer_id+'" data-productid="'+result.product.product_id+'"class="btn btn-danger orderDelete" ><i class="fas fa-trash-alt "></i></a></td></tr>');
+                                $('.addedProduct').append('<tr><td>'+result.product.product_name+'</td><td>'+result.product.quantity+'</td><td>'+result.product.price+'</td><td>'+total+'</td><td><a data-href="'+result.url_edit+'" data-price="'+result.product.price+'" data-custid="'+result.product.customer_id+'" data-productid="'+result.product.product_id+'" class="btn btn-success orderEdit" title="Edit"><i class="fas fa-pencil-alt "></i></a><a data-href="'+result.url_delete+'" data-custid="'+result.product.customer_id+'" data-productid="'+result.product.product_id+'"class="btn btn-danger orderDelete" ><i class="fas fa-trash-alt "></i></a></td></tr>');
                             
                         }
                         else{
@@ -153,12 +155,14 @@ $(document).on("click", ".proAdd", function (event) {
 
                                      $.each(result.product ,function(index,value){
                                         var quty = value.quantity;
-                                        var rate = value.get_product.price;
+                                        //var rate1 = value.get_product.price;
+                                        var rate = value.price;
                                         var total = quty * rate;
                                         // console.log(rate);
                                         // console.log(quty);
                                         // console.log(total);
-                                        $('.addedProduct').append('<tr><td>'+value.get_product.product_name+'</td><td>'+value.quantity+'</td><td>'+result.product.get_product.price+'</td><td>'+total+'</td><td><a data-href="'+value.url_edit+'" data-price="'+result.product.get_product.price+'" data-custid="'+value.customer_id+'" data-productid="'+value.product_id+'" class="btn btn-success orderEdit" title="Edit"><i class="fas fa-pencil-alt "></i></a><a data-href="'+value.url_delete+'" data-custid="'+value.customer_id+'" data-productid="'+value.product_id+'"class="btn btn-danger orderDelete" ><i class="fas fa-trash-alt "></i></a></td></tr>');
+                                        $('.addedProduct').append('<tr><td>'+value.product_name+'</td><td>'+value.quantity+'</td><td>'+value.price+'</td><td>'+total+'</td><td><a data-href="'+value.url_edit+'" data-price="'+result.product.price+'" data-custid="'+value.customer_id+'" data-productid="'+value.product_id+'" class="btn btn-success orderEdit" title="Edit"><i class="fas fa-pencil-alt "></i></a><a data-href="'+value.url_delete+'" data-custid="'+value.customer_id+'" data-productid="'+value.product_id+'"class="btn btn-danger orderDelete" ><i class="fas fa-trash-alt "></i></a></td></tr>');
+                                       // $('.addedProduct').append('<tr><td>'+value.get_product.product_name+'</td><td>'+value.quantity+'</td><td>'+result.product.get_product.price+'</td><td>'+total+'</td><td><a data-href="'+value.url_edit+'" data-price="'+result.product.get_product.price+'" data-custid="'+value.customer_id+'" data-productid="'+value.product_id+'" class="btn btn-success orderEdit" title="Edit"><i class="fas fa-pencil-alt "></i></a><a data-href="'+value.url_delete+'" data-custid="'+value.customer_id+'" data-productid="'+value.product_id+'"class="btn btn-danger orderDelete" ><i class="fas fa-trash-alt "></i></a></td></tr>');
 
                                     })
                                 
@@ -287,12 +291,15 @@ $(document).on("click", ".orderEdit", function (event) {
             {
                 $('#productEditModal').modal('show');
                  var value =result.product.quantity;
-                 var value1 =result.product.get_product.price;
+                //  var value1 =result.product.get_product.price;
+                 var value1 =result.product.price;
                  var total = value * value1;
-                 $('#proname').val(result.product.get_product.product_name);
+                 $('#proname').val(result.product.product_name);
+                //  $('#proname').val(result.product.get_product.product_name);
                  $('#rate').val(total);
                  $('#proqty').val(result.product.quantity);
-                 $('#price').val(result.product.get_product.price);
+                //  $('#price').val(result.product.get_product.price);
+                 $('#price').val(result.product.price);
                  $('#updateProduct').attr('data-action',result.route);
                  $('orderid').val(result.product.id);
             }

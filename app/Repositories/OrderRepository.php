@@ -59,11 +59,15 @@ class OrderRepository
         $cust = CustomerDetails::find($data['cust_id']);
         $cust->invoice_no = $order_id;
 
+        $pro = Product::find($id);
+        
         $order  =new OrderDetails();
         $order->product_id = $id;
         $order->customer_id = $data['cust_id'];
         $order->quantity = $data['qty'];
         $order->net_amount = $data['qty']*$data['rate'];
+        $order->product_name = $pro->product_name;
+        $order->price = $pro->price;
         $final = $data['qty']*$data['rate'];
         $items = OrderProduct::where('customer_id',$data['cust_id'])->first();
         //dd($items);
@@ -86,7 +90,7 @@ class OrderRepository
 
         $id = $order->id;
 
-        return OrderDetails::with('getProduct')->where('id',$id)->first();
+        return OrderDetails::where('id',$id)->first();
     }
 
     public function destroyOrder($id,$data)
@@ -100,7 +104,8 @@ class OrderRepository
 
     public function editProducts($id,$data)
     {
-        return OrderDetails::with('getProduct')->where('id',$id)->where('customer_id',$data['custid'])->first();
+        // return OrderDetails::with('getProduct')->where('id',$id)->where('customer_id',$data['custid'])->first();
+        return OrderDetails::where('id',$id)->where('customer_id',$data['custid'])->first();
 
     }
 
@@ -192,7 +197,7 @@ class OrderRepository
 
     public function productDetails($id)
     {
-        return OrderDetails::with('getProduct')->where('customer_id',$id)->get();
+        return OrderDetails::where('customer_id',$id)->get();
     }
 
 }

@@ -19,7 +19,7 @@
             <td style="border: 1px solid black;border-collapse: collapse;">Products</td>
             <td style="border: 1px solid black;border-collapse: collapse;">
             @foreach($product as $key=>$val)
-                {{++$key}} . {{$val->getProduct->product_name}} X {{$val->quantity}} = {{$val->net_amount}} <br>
+                {{++$key}} . {{$val->product_name}} X {{$val->quantity}} = {{$val->net_amount}} <br>
                         
             @endforeach
              </td>
