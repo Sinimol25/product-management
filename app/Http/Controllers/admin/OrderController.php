@@ -154,12 +154,12 @@ class OrderController extends Controller
         $custData = $this->orderRepo->downloadData($id);
         $products = $this->orderRepo->productDetails($id);
         $total = $this->orderRepo->getTotal($id);
-        $pdf = PDF::loadView('admin.order.samplePdf', ['data' => $custData , 'product' => $products , 'total' => $total])->setOptions(['defaultFont' => 'sans-serif']);
+        //$pdf = PDF::loadHtml('admin.order.samplePdf', ['data' => $custData , 'product' => $products , 'total' => $total])->setOptions(['defaultFont' => 'sans-serif']);
         //$pdf->stream("admin.order.samplePdf", array("Attachment" => false));
        // exit;
-
+        return view('admin.order.samplePdf', ['data' => $custData , 'product' => $products , 'total' => $total]);
        
-        return $pdf->download('order_details.pdf');
+        //return $pdf->loadView('order_details.pdf');
     }
 
 }

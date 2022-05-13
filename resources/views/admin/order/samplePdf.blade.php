@@ -4,7 +4,8 @@
      </head>
     <body>
         <h3> <b><u><center>Order Details</center></b></u></h3>
-        <table style="border: 1px solid black;border-collapse: collapse;width:100%;">
+        <center>
+        <table style="border: 1px solid black;border-collapse: collapse;width:600px;height:250px;">
         
             <tr >
                 <td style="border: 1px solid black;border-collapse: collapse;">Customer name</td>
@@ -28,7 +29,10 @@
                 <td style="border: 1px solid black;border-collapse: collapse;">{{$total->total}}</td>
             </tr>  
         </table>
-       
+        <br>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">Print</button>
+        </center>
+
     </body>
  
 </html>
