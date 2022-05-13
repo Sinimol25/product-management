@@ -11,6 +11,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
               <li class="breadcrumb-item"><a href="{{route('admin.product.list')}}">Product</a></li>
+              <li class="breadcrumb-item active">Edit Product</li>
             </ol>
           </div>
         </div>
@@ -83,7 +84,7 @@
                       $img =Storage::disk('local')->url($data->image);
                     }
                     else{
-                      $img='no image';
+                      $img={{asset ('theme/dist/img/images.png')}};
                     }
                     @endphp
                      <img id="preview-image-before-upload" src="{{($img) ? $img : ''}}" alt="preview image" style="max-height: 250px;">

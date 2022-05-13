@@ -37,7 +37,7 @@
              <!-- /.card-header -->
               
               <div class="card-body">
-              <table id="order_list" class="table table-bordered table-hover" data-url="" style="width:100%">
+              <table id="order_list" class="table table-bordered table-hover" data-url="{{route('admin.order.list-order')}}" style="width:100%">
                   <thead>
                   <tr>
                     <th>Sl.No</th>
@@ -51,7 +51,7 @@
                    </tr>
                   </thead>
                   <tbody id="list">
-                      @foreach($data as $key=>$val)
+                      {{--@foreach($data as $key=>$val)
                       @php  
                                 $cid = $val->id; 
                                 $total =  App\Repositories\OrderRepository::getTotal($cid);  
@@ -59,10 +59,10 @@
                           
                       <tr>
                           <td>{{++$key}}</td>
-                          <td>{{$val->invoice_no}}</td>
-                          <td>{{$val->name}}</td>
-                          <td>{{$val->phone}}</td>
-                          <td>{{$total->total}}</td>
+                          <td>{{$val->getCustomer->invoice_no}}</td>
+                          <td>{{$val->getCustomer->name}}</td>
+                          <td>{{$val->getCustomer->phone}}</td>
+                          <td>{{$total->net_amount}}</td>
                           <td>{{date('d-m-Y', strtotime($val->created_at))}}</td>
                           <td>
                                 <a data-href="{{route('admin.order.view',['id' => $val->id])}}" title="Edit Customer" class="btn btn-primary editUser" style="background:blue;"><i class="fas fa-user "></i></a>
@@ -71,7 +71,7 @@
                                 <a target="_blank" href="{{route('admin.order.download-invoice',['id' => $val->id])}}" title="Download Invoice" class="btn btn-success invoiceDowload" ><i class="fas fa-file "></i></a>
                           </td>
                       </tr>
-                      @endforeach
+                      @endforeach--}}
                   </tbody>
                 </table>
                
@@ -198,7 +198,7 @@
   <script src="{{ asset('admin/order.js') }}"></script>
 
   <script>
-  /*$(document).ready(function () {
+  $(document).ready(function () {
   let table;
     DataTabless();
 
@@ -211,29 +211,29 @@
                 searchable: false
             },
             {
-                data: "invoice_no",
+                data: "get_customer.invoice_no",
                 orderable: true, 
                 searchable: true
                 
             },
             {
-                data: "name",
+                data: "get_customer.name",
                 orderable: true, 
                 searchable: true
                 
             },
            {
-                data: "phone",
+                data: "get_customer.phone",
                 orderable: false, 
                 searchable: true
             },
             {
-                data: "total",
+                data: "net_amount",
                 orderable: false, 
                 searchable: true
             },
             {
-                data: "order_date",
+                data: "get_customer.created_at",
                 orderable: false, 
                 searchable: false
             },
@@ -290,7 +290,7 @@
             ],
         });
     }
-  });*/
+  });
 
   //delete order
 

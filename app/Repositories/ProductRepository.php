@@ -15,7 +15,7 @@ class ProductRepository
 
     public function getCategory()
     {
-        return Category::select('id','category_name','status')->where('status','=','1')->get();
+        return Category::select('id','category_name','status')->where('status','=','1')->withTrashed()->get();
     }
 
     public function insert($data)

@@ -115,54 +115,28 @@ class OrderRepository
         $order->quantity = $data['proqty'];
         $order->net_amount = $data['proqty']*$data['price'];
 
-        // $items = OrderProduct::where('customer_id',$data['cust_id'])->first();
-        // //dd($items);
-        // if($items!=null)
-        // {
-        //     $total = $items->total;
-        //     $product = OrderProduct::find($items->id);
-        //     $items->total = $total + $final;
-        //     $items->save();
-        // }
-        // else
-        // {
-        //     $product = new OrderProduct();
-        //     $product->customer_id = $data['cust_id'];
-        //     $product->total = $final;
-        //     $product->save();
-        // }
         $order->save();
         return $id;
     }
 
     public function getOrderList()
     {
-        //with('getCustomer')
-        $data = CustomerDetails::get();
-                    // select('order_details.customer_id as customer_id',
-                    //         DB::raw('sum(order_details.net_amount) as total'),
-                    //         'order_details.created_at as order_date',
-                    //         'customer_details.name as name',
-                    //         'customer_details.phone as phone',
-                    //         'customer_details.invoice_no as invoice_no',
-                    //         'customer_details.id as id')
-                    //         ->leftjoin('customer_details','customer_details.id','=','order_details.customer_id')
-                    //         ->groupBy('order_details.customer_id')
-                   
-            //dd($data);
-        /*return DataTables::of($data)
+        $data = OrderDetails::with('getCustomer')->select(DB::raw('sum(order_details.net_amount) as net_amount'),'customer_id')->groupBy('order_details.customer_id')->get();
+        return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                $actionBtn = '<a data-href="'.route('admin.order.view',['id' => $row->id]).'" title="Edit Customer" class="btn btn-primary editUser" style="background:blue;"><i class="fas fa-user "></i></a>
-                                <a href="'.route('admin.order.create',['id' => $row->id]).'" title="Edit" class="btn btn-primary" style="background:green;"><i class="fas fa-pencil-alt "></i></a>
-                                <a data-href="'.route('admin.order.delete-order',['id' => $row->id]).'" title="Delete" class="btn btn-danger deleteUser" ><i class="fas fa-trash-alt "></i></a>
-                                <a href="'.route('admin.order.download-invoice',['id' => $row->id]).'" title="Download Invoice" class="btn btn-success invoiceDowload" ><i class="fas fa-file "></i></a>';
+                $actionBtn = '<a data-href="'.route('admin.order.view',['id' => $row->getCustomer->id]).'" title="Edit Customer" class="btn btn-primary editUser" style="background:blue;"><i class="fas fa-user "></i></a>
+                                <a href="'.route('admin.order.create',['id' => $row->getCustomer->id]).'" title="Edit" class="btn btn-primary" style="background:green;"><i class="fas fa-pencil-alt "></i></a>
+                                <a data-href="'.route('admin.order.delete-order',['id' => $row->getCustomer->id]).'" title="Delete" class="btn btn-danger deleteUser" ><i class="fas fa-trash-alt "></i></a>
+                                <a target="_blank" href="'.route('admin.order.download-invoice',['id' => $row->getCustomer->id]).'" title="Download Invoice" class="btn btn-success invoiceDowload" ><i class="fas fa-file "></i></a>';
                 return $actionBtn;
             })
-           
+            ->editColumn('get_customer.created_at', function ($row) {
+                return date('d-M-Y', strtotime($row->getCustomer->created_at)); 
+              })
             ->rawColumns(['action'])
-            ->make(true);*/
-            return $data;
+            ->make(true);
+            //return $data;
     }
 
     public function getTotal($cid)
@@ -192,7 +166,8 @@ class OrderRepository
 
     public function downloadData($id)
     {
-        return CustomerDetails::where('id',$id)->first();
+        // return CustomerDetails::where('id',$id)->first();
+        return OrderDetails::with('getCustomer')->select(DB::raw('sum(order_details.net_amount) as net_amount'),'customer_id')->groupBy('order_details.customer_id')->where('order_details.customer_id',$id)->first();
     }
 
     public function productDetails($id)

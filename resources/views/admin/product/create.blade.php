@@ -11,6 +11,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
               <li class="breadcrumb-item"><a href="{{route('admin.product.list')}}">Product</a></li>
+              <li class="breadcrumb-item active">Add Product</li>
             </ol>
           </div>
         </div>
@@ -80,7 +81,8 @@
                     @if($errors->has('image'))
                       <p style="color:red">  {{$errors->first('image')}}</p>
                     @endif
-                    <img id="preview-image-before-upload" src="" alt="preview image" style="max-height: 250px;">
+                    <br>
+                    <img id="preview-image-before-upload" src="{{asset ('theme/dist/img/images.png')}}" alt="preview image" style="max-height: 150px;">
 
                   </div>
                 </div>

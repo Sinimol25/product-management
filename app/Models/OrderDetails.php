@@ -18,8 +18,8 @@ class OrderDetails extends Model
         return $this->belongsTo(Product::class,'product_id');
     }
 
-    // public function getCustomer()
-    // {
-    //     return $this->belongsTo(CustomerDetails::class,'customer_id');
-    // }
+    public function getCustomer()
+    {
+        return $this->belongsTo(CustomerDetails::class,'customer_id');
+    }
 }

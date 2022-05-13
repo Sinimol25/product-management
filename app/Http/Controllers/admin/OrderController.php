@@ -18,8 +18,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $data = $this->orderRepo->getOrderList();
-        return view('admin.order.index',compact('data'));
+        return view('admin.order.index');
     }
 
     public function create($id)
@@ -153,11 +152,11 @@ class OrderController extends Controller
     {
         $custData = $this->orderRepo->downloadData($id);
         $products = $this->orderRepo->productDetails($id);
-        $total = $this->orderRepo->getTotal($id);
+       // $total = $this->orderRepo->getTotal($id);
         //$pdf = PDF::loadHtml('admin.order.samplePdf', ['data' => $custData , 'product' => $products , 'total' => $total])->setOptions(['defaultFont' => 'sans-serif']);
         //$pdf->stream("admin.order.samplePdf", array("Attachment" => false));
        // exit;
-        return view('admin.order.samplePdf', ['data' => $custData , 'product' => $products , 'total' => $total]);
+        return view('admin.order.samplePdf', ['data' => $custData , 'product' => $products ]);
        
         //return $pdf->loadView('order_details.pdf');
     }
